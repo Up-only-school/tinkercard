@@ -1,9 +1,14 @@
 // MVP, MVC, MVVM
 //
 import 'package:flutter/material.dart';
+import 'package:tinkercad/features/home/home_controller.dart';
+
+const blaBla = 'dfln';
 
 class MyHomePage extends StatelessWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+  MyHomePage({Key? key}) : super(key: key);
+
+  final controller = HomeController();
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +26,12 @@ class MyHomePage extends StatelessWidget {
             Text(
               '1',
               style: Theme.of(context).textTheme.headline4,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                controller.doSomething();
+              },
+              child: const Text('Press me'),
             ),
           ],
         ),
