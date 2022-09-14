@@ -35,10 +35,18 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 if (state.isLoading) const Center(child: CircularProgressIndicator()),
-                if (!state.isLoading)
-                  Text(
-                    'Cards must be displayed',
-                    style: Theme.of(context).textTheme.headline4,
+                const SizedBox(height: 16),
+                if (state.activities != null && state.activities.isNotEmpty)
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: state.activities.length,
+                    itemBuilder: (context, index) => Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        state.activities[index].name,
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
+                    ),
                   ),
                 const SizedBox(height: 16),
                 ElevatedButton(

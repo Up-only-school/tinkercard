@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:tinkercad/features/home/home_state.dart';
+import 'package:tinkercad/services/api/api.dart';
 
 class HomeBloc extends Cubit<HomeState> {
   HomeBloc()
@@ -7,14 +8,21 @@ class HomeBloc extends Cubit<HomeState> {
           allTasksComplete: false,
           error: null,
           isLoading: true,
-          tasks: [],
+          activities: [],
         )){
-    _loadCards();
+    _loadActivities();
   }
 
+  final api = Api();
 
-  void _loadCards() {
-
+  Future<void> _loadActivities() async {
+    final activities = await api.loadActivities();
+    emit(HomeState(
+      allTasksComplete: false,
+      error: null,
+      isLoading: false,
+      activities: activities,
+    ));
   }
 
   void doSomething() {
@@ -22,7 +30,7 @@ class HomeBloc extends Cubit<HomeState> {
       allTasksComplete: false,
       error: null,
       isLoading: false,
-      tasks: [],
+      activities: [],
     ));
   }
 }
