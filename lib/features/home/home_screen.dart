@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tinkercad/features/home/home_controller.dart';
 import 'package:tinkercad/features/home/home_state.dart';
+import 'package:tinkercad/features/home/internal/complete_view.dart';
 import 'package:tinkercad/ui/activity_card.dart';
 
 class HomePage extends StatefulWidget {
@@ -31,14 +32,18 @@ class _HomePageState extends State<HomePage> {
       body: BlocBuilder<HomeBloc, HomeState>(
         bloc: bloc,
         builder: (context, state) {
+
+
           return Center(
-            child: ListView.builder(
+            child: state.allTasksComplete ? const CompleteView() : ListView.builder(
               shrinkWrap: true,
               itemCount: state.activities.length,
               itemBuilder: (context, index) => Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: ActivityCard(
                   activity: state.activities[index],
+                  onNegativePressed: () => bloc.onNegativePressed(state.activities[index]),
+                  onPositivePressed: () => bloc.onPositivePressed(state.activities[index]),
                 ),
               ),
             ),

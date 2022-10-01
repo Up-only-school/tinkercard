@@ -5,9 +5,13 @@ import 'package:tinkercad/services/api/models/activity.dart';
 class ActivityCard extends StatelessWidget {
   const ActivityCard({
     required this.activity,
+    this.onPositivePressed,
+    this.onNegativePressed,
     Key? key,
   }) : super(key: key);
 
+  final VoidCallback? onPositivePressed;
+  final VoidCallback? onNegativePressed;
   final Activity activity;
 
   @override
@@ -42,8 +46,8 @@ class ActivityCard extends StatelessWidget {
                   child: _Description(activity: activity),
                 ),
                 _Buttons(
-                  onPositivePressed: () {},
-                  onNegativePressed: () {},
+                  onPositivePressed: onPositivePressed,
+                  onNegativePressed: onNegativePressed,
                 ),
               ],
             ),
@@ -57,13 +61,13 @@ class ActivityCard extends StatelessWidget {
 
 class _Buttons extends StatelessWidget {
   const _Buttons({
-    required this.onPositivePressed,
-    required this.onNegativePressed,
+    this.onPositivePressed,
+    this.onNegativePressed,
     Key? key,
   }) : super(key: key);
 
-  final VoidCallback onPositivePressed;
-  final VoidCallback onNegativePressed;
+  final VoidCallback? onPositivePressed;
+  final VoidCallback? onNegativePressed;
 
   @override
   Widget build(BuildContext context) {
