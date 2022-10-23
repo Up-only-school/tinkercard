@@ -4,6 +4,7 @@ import 'package:tinkercad/services/dependencies.dart';
 
 //todo error on getting Activity from HiveBox when restarting the App
 //todo Implement storing and reading list of acitivities, not just one
+//todo disable save acitivity button when required fields are empty
 //todo Add image for an activity
 void main() async {
   await initDependencies();
