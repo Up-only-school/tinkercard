@@ -1,8 +1,10 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:tinkercad/features/create_activity/create_activity_screen.dart';
 import 'package:tinkercad/features/home/home_state.dart';
 import 'package:tinkercad/services/analytics.dart';
-import 'package:tinkercad/services/api/api.dart';
 import 'package:tinkercad/services/api/models/activity.dart';
 import 'package:tinkercad/services/repositories/metrics_repository.dart';
 import 'package:tinkercad/services/stores/local_store.dart';
@@ -18,16 +20,14 @@ class HomeBloc extends Cubit<HomeState> {
     _loadActivities();
   }
 
-
   final _localStore = GetIt.instance.get<LocalStore>();
 
   //todo move to GetIt
-  final _api = Api();
   final _metrics = MetricsRepository();
   final _analytics = Analytics();
 
   Future<void> _loadActivities() async {
-    final activities = await _api.loadActivities();
+    final activities = await _localStore.getActivities();
     emit(HomeState(
       allTasksComplete: false,
       error: null,
@@ -75,9 +75,15 @@ class HomeBloc extends Cubit<HomeState> {
     ));
   }
 
-  void onAddActivityClicked() {
+  //todo BuildContext must not be used in Bloc
+  Future<void> onAddActivityClicked(BuildContext context) async {
     _analytics.addEvent('AddActivityClicked');
 
-    _localStore.addActivity(true);
+    final navigator = Navigator.of(context);
+    await navigator.push(MaterialPageRoute(
+      builder: (context) => const CreateActivityPage(),
+    ));
+
+    _loadActivities();
   }
 }

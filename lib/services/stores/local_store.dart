@@ -1,23 +1,32 @@
-
-
 import 'package:hive/hive.dart';
+import 'package:tinkercad/services/api/models/activity.dart';
 
 class LocalStore {
-  LocalStore() {
-    print('Local store instance created ${hashCode}');
-  }
+  LocalStore();
 
-  late Box _prefs;
+  late Box<Map<String, dynamic>> _activitiesBox;
 
   Future<void> init() async {
-    _prefs = await Hive.openBox('preferences');
+    _activitiesBox = await Hive.openBox('preferences');
   }
 
-  bool getActivities() => _prefs.get('activities') == true;
-
-  void addActivity(bool value) {
-    print('LocalStore#addActivity');
-    // _prefs.put('activities', value);
+  Future<List<Activity>> getActivities() async {
+    var json = _activitiesBox.get('activities');
+    if (json == null) {
+      return [];
+    } else {
+      return [
+        Activity(
+          name: json['name'],
+          description: json['description'],
+          imageUrl: json['imageUrl'],
+        )
+      ];
+    }
   }
 
+  Future<void> addActivity(Activity activity) => _activitiesBox.put(
+        'activities',
+        activity.toJson(),
+      );
 }

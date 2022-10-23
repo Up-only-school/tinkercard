@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:tinkercad/features/home/home_screen.dart';
 import 'package:tinkercad/services/dependencies.dart';
 
+//todo error on getting Activity from HiveBox when restarting the App
+//todo Implement storing and reading list of acitivities, not just one
+//todo Add image for an activity
 void main() async {
-
   await initDependencies();
   runApp(const MyApp());
 }

@@ -4,4 +4,12 @@ class Activity {
   final String name;
   final String? description;
   final String? imageUrl;
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'description': description,
+      'imageUrl': imageUrl,
+    };
+  }
 }
