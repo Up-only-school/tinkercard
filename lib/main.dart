@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:tinkercad/features/home/home_screen.dart';
+import 'package:tinkercad/services/dependencies.dart';
 
-void main() {
+void main() async {
+
+  await initDependencies();
   runApp(const MyApp());
 }
 

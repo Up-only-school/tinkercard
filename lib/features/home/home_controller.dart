@@ -1,8 +1,11 @@
 import 'package:bloc/bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:tinkercad/features/home/home_state.dart';
+import 'package:tinkercad/services/analytics.dart';
 import 'package:tinkercad/services/api/api.dart';
 import 'package:tinkercad/services/api/models/activity.dart';
 import 'package:tinkercad/services/repositories/metrics_repository.dart';
+import 'package:tinkercad/services/stores/local_store.dart';
 
 class HomeBloc extends Cubit<HomeState> {
   HomeBloc()
@@ -15,11 +18,16 @@ class HomeBloc extends Cubit<HomeState> {
     _loadActivities();
   }
 
-  final api = Api();
+
+  final _localStore = GetIt.instance.get<LocalStore>();
+
+  //todo move to GetIt
+  final _api = Api();
   final _metrics = MetricsRepository();
+  final _analytics = Analytics();
 
   Future<void> _loadActivities() async {
-    final activities = await api.loadActivities();
+    final activities = await _api.loadActivities();
     emit(HomeState(
       allTasksComplete: false,
       error: null,
@@ -46,8 +54,7 @@ class HomeBloc extends Cubit<HomeState> {
   }
 
   void _onActivityCompleted(Activity activity, bool isCompleted) {
-    // log analytics event
-    //todo
+    _analytics.addEvent('ActivityCompleted', args: {'isCompleted': isCompleted});
 
     // store event for app metrics
     _metrics.store(
@@ -66,5 +73,11 @@ class HomeBloc extends Cubit<HomeState> {
       isLoading: false,
       activities: currentActivities,
     ));
+  }
+
+  void onAddActivityClicked() {
+    _analytics.addEvent('AddActivityClicked');
+
+    _localStore.addActivity(true);
   }
 }

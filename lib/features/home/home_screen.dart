@@ -28,25 +28,31 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('I\'m home'),
+        actions: [
+          IconButton(
+            onPressed: bloc.onAddActivityClicked,
+            icon: const Icon(Icons.add),
+          )
+        ],
       ),
       body: BlocBuilder<HomeBloc, HomeState>(
         bloc: bloc,
         builder: (context, state) {
-
-
           return Center(
-            child: state.allTasksComplete ? const CompleteView() : ListView.builder(
-              shrinkWrap: true,
-              itemCount: state.activities.length,
-              itemBuilder: (context, index) => Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: ActivityCard(
-                  activity: state.activities[index],
-                  onNegativePressed: () => bloc.onNegativePressed(state.activities[index]),
-                  onPositivePressed: () => bloc.onPositivePressed(state.activities[index]),
-                ),
-              ),
-            ),
+            child: state.allTasksComplete
+                ? const CompleteView()
+                : ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: state.activities.length,
+                    itemBuilder: (context, index) => Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: ActivityCard(
+                        activity: state.activities[index],
+                        onNegativePressed: () => bloc.onNegativePressed(state.activities[index]),
+                        onPositivePressed: () => bloc.onPositivePressed(state.activities[index]),
+                      ),
+                    ),
+                  ),
           );
         },
       ),
