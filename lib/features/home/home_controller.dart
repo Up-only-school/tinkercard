@@ -1,6 +1,5 @@
-import 'package:bloc/bloc.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tinkercad/features/create_activity/create_activity_screen.dart';
 import 'package:tinkercad/features/home/home_state.dart';
@@ -9,7 +8,9 @@ import 'package:tinkercad/services/api/models/activity.dart';
 import 'package:tinkercad/services/repositories/metrics_repository.dart';
 import 'package:tinkercad/services/stores/local_store.dart';
 
-class HomeBloc extends Cubit<HomeState> {
+final homeControllerProvider = StateNotifierProvider<HomeBloc, HomeState>((ref) => HomeBloc());
+
+class HomeBloc extends StateNotifier<HomeState> {
   HomeBloc()
       : super(HomeState(
           allTasksComplete: false,
@@ -85,5 +86,9 @@ class HomeBloc extends Cubit<HomeState> {
     ));
 
     _loadActivities();
+  }
+
+  void emit(HomeState homeState) {
+    state = homeState;
   }
 }

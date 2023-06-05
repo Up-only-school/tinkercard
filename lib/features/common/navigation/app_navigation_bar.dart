@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tinkercad/features/common/navigation/NavigationTab.dart';
+import 'package:tinkercad/features/common/navigation/navigation_tab.dart';
 
 class AppNavigationBar extends StatelessWidget {
   const AppNavigationBar({

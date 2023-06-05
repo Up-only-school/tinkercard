@@ -1,30 +1,19 @@
 // MVP, MVC, MVVM
 //
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tinkercad/features/home/home_controller.dart';
-import 'package:tinkercad/features/home/home_state.dart';
 import 'package:tinkercad/features/home/internal/complete_view.dart';
 import 'package:tinkercad/ui/activity_card.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class HomePage extends ConsumerWidget {
+  const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final bloc = ref.read(homeControllerProvider.notifier);
+    final state = ref.watch(homeControllerProvider);
 
-class _HomePageState extends State<HomePage> {
-  final bloc = HomeBloc();
-
-  @override
-  void dispose() {
-    bloc.close();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('I\'m home'),
@@ -35,27 +24,22 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
-      body: BlocBuilder<HomeBloc, HomeState>(
-        bloc: bloc,
-        builder: (context, state) {
-          return state.allTasksComplete
-              ? const Center(
-                  child: CompleteView(),
-                )
-              : ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: state.activities.length,
-                  itemBuilder: (context, index) => Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: ActivityCard(
-                      activity: state.activities[index],
-                      onNegativePressed: () => bloc.onNegativePressed(state.activities[index]),
-                      onPositivePressed: () => bloc.onPositivePressed(state.activities[index]),
-                    ),
-                  ),
-                );
-        },
-      ),
+      body: state.allTasksComplete
+          ? const Center(
+              child: CompleteView(),
+            )
+          : ListView.builder(
+              shrinkWrap: true,
+              itemCount: state.activities.length,
+              itemBuilder: (context, index) => Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: ActivityCard(
+                  activity: state.activities[index],
+                  onNegativePressed: () => bloc.onNegativePressed(state.activities[index]),
+                  onPositivePressed: () => bloc.onPositivePressed(state.activities[index]),
+                ),
+              ),
+            ),
     );
   }
 }
