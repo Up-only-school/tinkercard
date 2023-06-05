@@ -16,9 +16,20 @@ dependencies:
   # architecture
   bloc: ^8.1.0
   flutter_bloc: ^8.1.1
+  riverpod: 2.3.6
+  flutter_riverpod: 2.3.6
+  hooks_riverpod: 2.3.6
+
+  # tools
+  flutter_hooks: ^0.18.5+1
 
   # widget
   cached_network_image: ^3.2.2
+  assorted_layout_widgets: ^7.0.0
+  sliver_tools: ^0.2.8
+  visibility_detector: ^0.3.3
+  modal_bottom_sheet: 3.0.0-pre
+  gap: 3.0.0
 
   # stores
   hive: ^2.2.3
@@ -26,6 +37,9 @@ dependencies:
 
   # DI
   get_it: ^7.2.0
+
+  # navigation
+  go_router: ^7.1.1
 
 dev_dependencies:
   flutter_test:
