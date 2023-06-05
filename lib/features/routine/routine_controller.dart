@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tinkercad/features/create_activity/create_activity_screen.dart';
-import 'package:tinkercad/features/home/home_state.dart';
+import 'package:tinkercad/features/routine/routine_state.dart';
 import 'package:tinkercad/services/analytics.dart';
 import 'package:tinkercad/services/api/models/activity.dart';
 import 'package:tinkercad/services/repositories/metrics_repository.dart';
 import 'package:tinkercad/services/stores/local_store.dart';
 
-final homeControllerProvider = StateNotifierProvider<HomeBloc, HomeState>((ref) => HomeBloc());
+final routineControllerProvider = StateNotifierProvider<RoutineBloc, RoutineState>((ref) => RoutineBloc());
 
-class HomeBloc extends StateNotifier<HomeState> {
-  HomeBloc()
-      : super(HomeState(
+class RoutineBloc extends StateNotifier<RoutineState> {
+  RoutineBloc()
+      : super(RoutineState(
           allTasksComplete: false,
           error: null,
           isLoading: true,
@@ -29,7 +29,7 @@ class HomeBloc extends StateNotifier<HomeState> {
 
   Future<void> _loadActivities() async {
     final activities = await _localStore.getActivities();
-    emit(HomeState(
+    emit(RoutineState(
       allTasksComplete: false,
       error: null,
       isLoading: false,
@@ -38,7 +38,7 @@ class HomeBloc extends StateNotifier<HomeState> {
   }
 
   void doSomething() {
-    emit(HomeState(
+    emit(RoutineState(
       allTasksComplete: false,
       error: null,
       isLoading: false,
@@ -68,7 +68,7 @@ class HomeBloc extends StateNotifier<HomeState> {
     final currentActivities = state.activities;
     currentActivities.remove(activity);
 
-    emit(HomeState(
+    emit(RoutineState(
       allTasksComplete: currentActivities.isEmpty,
       error: null,
       isLoading: false,
@@ -88,7 +88,7 @@ class HomeBloc extends StateNotifier<HomeState> {
     _loadActivities();
   }
 
-  void emit(HomeState homeState) {
+  void emit(RoutineState homeState) {
     state = homeState;
   }
 }

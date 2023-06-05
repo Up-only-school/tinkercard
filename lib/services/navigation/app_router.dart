@@ -22,7 +22,7 @@ class AppRouter {
             ...topRoutes,
             StatefulShellRoute.indexedStack(
               branches: <StatefulShellBranch>[
-                ActivityRoute(),
+                RoutineRoute(),
                 MonitorRoute(),
                 SettingsRoute(),
               ],

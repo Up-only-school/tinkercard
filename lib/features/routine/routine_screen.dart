@@ -2,17 +2,17 @@
 //
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tinkercad/features/home/home_controller.dart';
-import 'package:tinkercad/features/home/internal/complete_view.dart';
+import 'package:tinkercad/features/routine/internal/complete_view.dart';
+import 'package:tinkercad/features/routine/routine_controller.dart';
 import 'package:tinkercad/ui/activity_card.dart';
 
-class HomePage extends ConsumerWidget {
-  const HomePage({super.key});
+class RoutineScreen extends ConsumerWidget {
+  const RoutineScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final bloc = ref.read(homeControllerProvider.notifier);
-    final state = ref.watch(homeControllerProvider);
+    final bloc = ref.read(routineControllerProvider.notifier);
+    final state = ref.watch(routineControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

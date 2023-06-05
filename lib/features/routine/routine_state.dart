@@ -2,8 +2,8 @@ import 'package:tinkercad/services/api/models/activity.dart';
 
 /// POJO - plain old java object
 /// equals, hashcode, copyWith
-class HomeState {
-  HomeState({
+class RoutineState {
+  RoutineState({
     this.activities = const [],
     this.error,
     this.isLoading = false,
