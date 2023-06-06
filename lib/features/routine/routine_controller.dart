@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_it/get_it.dart';
 import 'package:tinkercad/features/create_activity/create_activity_screen.dart';
 import 'package:tinkercad/features/routine/routine_state.dart';
-import 'package:tinkercad/services/analytics.dart';
 import 'package:tinkercad/services/api/models/activity.dart';
 import 'package:tinkercad/services/repositories/metrics_repository.dart';
 import 'package:tinkercad/services/stores/local_store.dart';
+import 'package:tinkercad/services/tracker/tracker.dart';
 
-final routineControllerProvider = StateNotifierProvider<RoutineBloc, RoutineState>((ref) => RoutineBloc());
+final routineControllerProvider = StateNotifierProvider<RoutineBloc, RoutineState>((ref) => RoutineBloc(ref));
 
 class RoutineBloc extends StateNotifier<RoutineState> {
-  RoutineBloc()
-      : super(RoutineState(
+  RoutineBloc(Ref ref)
+      : _localStore = ref.read(storeProvider),
+        _analytics = ref.read(trackerProvider),
+        super(RoutineState(
           allTasksComplete: false,
           error: null,
           isLoading: true,
@@ -21,11 +22,10 @@ class RoutineBloc extends StateNotifier<RoutineState> {
     _loadActivities();
   }
 
-  final _localStore = GetIt.instance.get<LocalStore>();
+  final Store _localStore;
 
-  //todo move to GetIt
   final _metrics = MetricsRepository();
-  final _analytics = Analytics();
+  final Tracker _analytics;
 
   Future<void> _loadActivities() async {
     final activities = await _localStore.getActivities();
@@ -55,7 +55,7 @@ class RoutineBloc extends StateNotifier<RoutineState> {
   }
 
   void _onActivityCompleted(Activity activity, bool isCompleted) {
-    _analytics.addEvent('ActivityCompleted', args: {'isCompleted': isCompleted});
+    _analytics.logEvent('ActivityCompleted', args: {'isCompleted': isCompleted});
 
     // store event for app metrics
     _metrics.store(
@@ -78,7 +78,7 @@ class RoutineBloc extends StateNotifier<RoutineState> {
 
   //todo BuildContext must not be used in Bloc
   Future<void> onAddActivityClicked(BuildContext context) async {
-    _analytics.addEvent('AddActivityClicked');
+    _analytics.logEvent('AddActivityClicked');
 
     final navigator = Navigator.of(context);
     await navigator.push(MaterialPageRoute(

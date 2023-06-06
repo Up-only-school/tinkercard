@@ -1,32 +1,37 @@
-import 'package:hive/hive.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tinkercad/services/api/models/activity.dart';
 
-class LocalStore {
-  LocalStore();
+final storeProvider = Provider((ref) => Store());
 
-  late Box<Map<String, dynamic>> _activitiesBox;
+class Store {
+  Store();
+
+  late final FirebaseFirestore _db;
+
+  // late Box<Map<String, dynamic>> _activitiesBox;
 
   Future<void> init() async {
-    _activitiesBox = await Hive.openBox('preferences');
+    _db = FirebaseFirestore.instance;
+    // _activitiesBox = await Hive.openBox('preferences');
   }
 
   Future<List<Activity>> getActivities() async {
-    var json = _activitiesBox.get('activities');
-    if (json == null) {
+    final snapshot = _db.collection('activities').get();
+    // snapshot.
+    // var json = _activitiesBox.get('activities');
+    // if (json == null) {
       return [];
-    } else {
-      return [
-        Activity(
-          name: json['name'],
-          description: json['description'],
-          imageUrl: json['imageUrl'],
-        )
-      ];
-    }
+    // } else {
+    //   return [
+    //     Activity(
+    //       name: json['name'],
+    //       description: json['description'],
+    //       imageUrl: json['imageUrl'],
+    //     )
+    //   ];
+    // }
   }
 
-  Future<void> addActivity(Activity activity) => _activitiesBox.put(
-        'activities',
-        activity.toJson(),
-      );
+  Future<void> addActivity(Activity activity) => _db.collection('activities').add(activity.toJson());
 }

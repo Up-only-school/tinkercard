@@ -15,7 +15,7 @@ class CreateActivityBloc extends Cubit<CreateActivityState> {
           activities: [],
         ));
 
-  final _localStore = GetIt.instance.get<LocalStore>();
+  final _localStore = GetIt.instance.get<Store>();
   final _analytics = GetIt.instance.get<Analytics>();
 
   //todo remove context

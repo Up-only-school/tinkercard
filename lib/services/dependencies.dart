@@ -4,15 +4,15 @@ import 'package:tinkercad/services/analytics.dart';
 import 'package:tinkercad/services/stores/local_store.dart';
 
 Future<void> initDependencies() async {
-  final getIt = GetIt.instance;
+  // final getIt = GetIt.instance;
 
-  await Hive.initFlutter();
+  // await Hive.initFlutter();
 
-  final localStore = LocalStore();
-  await localStore.init();
-  getIt
-    ..registerSingleton(localStore)
-    ..registerLazySingleton(() => Analytics())
-  ;
+  // final localStore = LocalStore();
+  // await localStore.init();
+  // getIt
+  //   ..registerSingleton(localStore)
+  //   ..registerLazySingleton(() => Analytics())
+  // ;
 
 }
