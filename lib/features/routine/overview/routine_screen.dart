@@ -2,8 +2,8 @@
 //
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tinkercad/features/routine/internal/complete_view.dart';
-import 'package:tinkercad/features/routine/routine_controller.dart';
+import 'package:tinkercad/features/routine/overview/internal/complete_view.dart';
+import 'package:tinkercad/features/routine/overview/routine_controller.dart';
 import 'package:tinkercad/ui/activity_card.dart';
 
 class RoutineScreen extends ConsumerWidget {

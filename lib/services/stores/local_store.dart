@@ -17,20 +17,17 @@ class Store {
   }
 
   Future<List<Activity>> getActivities() async {
-    final snapshot = _db.collection('activities').get();
-    // snapshot.
-    // var json = _activitiesBox.get('activities');
-    // if (json == null) {
-      return [];
-    // } else {
-    //   return [
-    //     Activity(
-    //       name: json['name'],
-    //       description: json['description'],
-    //       imageUrl: json['imageUrl'],
-    //     )
-    //   ];
-    // }
+    final snapshot = await _db.collection('activities').get();
+    return snapshot.docs.map((e) {
+      var json = e.data();
+      // return json;
+
+      return Activity(
+        name: json['name'],
+        description: json['description'],
+        imageUrl: json['imageUrl'],
+      );
+    }).toList();
   }
 
   Future<void> addActivity(Activity activity) => _db.collection('activities').add(activity.toJson());

@@ -1,5 +1,5 @@
 import 'package:go_router/go_router.dart';
-import 'package:tinkercad/features/routine/routine_screen.dart';
+import 'package:tinkercad/features/routine/overview/routine_screen.dart';
 
 class RoutineRoute extends StatefulShellBranch {
   RoutineRoute()

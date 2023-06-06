@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tinkercad/features/create_activity/create_activity_screen.dart';
-import 'package:tinkercad/features/routine/routine_state.dart';
+import 'package:tinkercad/features/routine/create_activity/create_activity_screen.dart';
+import 'package:tinkercad/features/routine/overview/routine_state.dart';
 import 'package:tinkercad/services/api/models/activity.dart';
 import 'package:tinkercad/services/repositories/metrics_repository.dart';
 import 'package:tinkercad/services/stores/local_store.dart';
@@ -23,9 +23,8 @@ class RoutineBloc extends StateNotifier<RoutineState> {
   }
 
   final Store _localStore;
-
-  final _metrics = MetricsRepository();
   final Tracker _analytics;
+  final _metrics = MetricsRepository();
 
   Future<void> _loadActivities() async {
     final activities = await _localStore.getActivities();
