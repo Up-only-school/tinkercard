@@ -10,14 +10,13 @@ final appRouterProvider = Provider((ref) => AppRouter());
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
-//todo navigation observers does not work
 class AppRouter {
   final GoRouter delegate;
 
   AppRouter()
       : delegate = GoRouter(
           navigatorKey: _rootNavigatorKey,
-          initialLocation: '/activity',
+          initialLocation: '/routine',
           routes: <RouteBase>[
             ...topRoutes,
             StatefulShellRoute.indexedStack(

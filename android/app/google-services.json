@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "870229156697",
+    "project_id": "tinker-9b347",
+    "storage_bucket": "tinker-9b347.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:870229156697:android:274efcf7b7452d16132248",
+        "android_client_info": {
+          "package_name": "io.justd.tinkercad"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "870229156697-el2790cndllldfpuac3n8agbd6g7hqro.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUQthAXAER_NPY7zwYC5vdWyg_IdXulqI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "870229156697-el2790cndllldfpuac3n8agbd6g7hqro.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

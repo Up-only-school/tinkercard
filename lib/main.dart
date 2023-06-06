@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tinkercad/features/splash/app_initializer.dart';
 import 'package:tinkercad/services/dependencies.dart';
 import 'package:tinkercad/services/navigation/app_router.dart';
 
@@ -9,7 +10,7 @@ import 'package:tinkercad/services/navigation/app_router.dart';
 //todo Add image for an activity
 void main() async {
   await initDependencies();
-  runApp(const ProviderScope(child: MyApp()));
+  runApp(const ProviderScope(child: AppInitializer(app: MyApp())));
 }
 
 class MyApp extends ConsumerWidget {
